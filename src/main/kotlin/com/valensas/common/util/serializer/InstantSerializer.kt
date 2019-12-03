@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 
 class InstantSerializer : JsonSerializer<Instant>() {
-
     override fun serialize(value: Instant?, gen: JsonGenerator?, serializers: SerializerProvider?) {
         gen?.writeString(
             dateTimeFormatter.format(value)

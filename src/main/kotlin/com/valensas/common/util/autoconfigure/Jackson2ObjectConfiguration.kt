@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.valensas.common.util.serializer.BigDecimalMoneyDeserializer
 import com.valensas.common.util.serializer.InstantSerializer
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -19,7 +20,11 @@ import java.time.Instant
 class Jackson2ObjectConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    fun objectMapper(builder: Jackson2ObjectMapperBuilder): ObjectMapper {
+    fun objectMapper(
+        builder: Jackson2ObjectMapperBuilder,
+        @Value("\${valensas.server.bigdecimal.scale:8}")
+        scale: Int
+    ): ObjectMapper {
 
         val objectMapper: ObjectMapper = builder.createXmlMapper(false).build()
 
@@ -27,7 +32,7 @@ class Jackson2ObjectConfiguration {
         objectMapper.registerModule(JavaTimeModule())
 
         val bigDecimalModule = SimpleModule("big-decimal-mappers")
-            .addDeserializer(BigDecimal::class.java, BigDecimalMoneyDeserializer())
+            .addDeserializer(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
 
         val instantModule = SimpleModule("instant-module")
             .addSerializer(Instant::class.java, InstantSerializer())
