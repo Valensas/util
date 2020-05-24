@@ -7,13 +7,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.valensas.common.util.serializer.BigDecimalMoneyDeserializer
 import com.valensas.common.util.serializer.InstantSerializer
+import java.math.BigDecimal
+import java.time.Instant
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
-import java.math.BigDecimal
-import java.time.Instant
 
 @Configuration
 @ConditionalOnMissingBean(ObjectMapper::class)

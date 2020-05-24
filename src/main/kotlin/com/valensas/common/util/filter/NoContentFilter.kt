@@ -1,12 +1,12 @@
 package com.valensas.common.util.filter
 
-import org.springframework.http.HttpStatus
-import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import org.springframework.http.HttpStatus
+import org.springframework.web.filter.OncePerRequestFilter
 
 class NoContentFilter : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
