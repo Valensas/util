@@ -13,20 +13,20 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 @Configuration
-@ConditionalOnMissingBean(ObjectMapper::class)
+@Primary
 class Jackson2ObjectConfiguration {
     @Bean
-    @ConditionalOnMissingBean
+    @Primary
     fun objectMapper(
-        builder: Jackson2ObjectMapperBuilder,
         @Value("\${valensas.server.bigdecimal.scale:8}")
         scale: Int
     ): ObjectMapper {
 
-        val objectMapper: ObjectMapper = builder.createXmlMapper(false).build()
+        val objectMapper: ObjectMapper = Jackson2ObjectMapperBuilder().createXmlMapper(false).build()
 
         objectMapper.registerModule(KotlinModule())
         objectMapper.registerModule(JavaTimeModule())
