@@ -28,7 +28,7 @@ class Jackson2ObjectConfiguration {
         scale: Int
     ): ObjectMapper {
 
-        val objectMapper: ObjectMapper = Jackson2ObjectMapperBuilder().createXmlMapper(false).build()
+        val objectMapper: ObjectMapper = builder.createXmlMapper(false).build()
 
         objectMapper.registerModule(KotlinModule())
         objectMapper.registerModule(JavaTimeModule())
