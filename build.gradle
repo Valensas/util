@@ -2,9 +2,9 @@ apply from: './version.gradle'
 
 buildscript {
     ext {
-        kotlinVersion = '1.3.72'
-        springBootVersion = '2.3.0.RELEASE'
-        springDependencyVersion = '1.0.9.RELEASE'
+        kotlinVersion = '1.6.0'
+        springBootVersion = '2.6.1'
+        springDependencyVersion = '1.0.11.RELEASE'
         ktlintVersion = '0.37.0'
         junit5Version = '5.7.0-M1'
         junit5LauncherVersion = '1.7.0-M1'
