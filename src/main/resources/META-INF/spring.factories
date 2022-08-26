@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.valensas.common.util.autoconfigure.Jackson2ObjectConfiguration
+  com.valensas.common.util.autoconfigure.JacksonConfiguration

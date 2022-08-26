@@ -8,13 +8,9 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 
 class InstantSerializer : JsonSerializer<Instant>() {
-    override fun serialize(value: Instant?, gen: JsonGenerator?, serializers: SerializerProvider?) {
-        gen?.writeString(
-            dateTimeFormatter.format(value)
-        )
-    }
+    private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatterBuilder().appendInstant(3).toFormatter()
 
-    companion object {
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatterBuilder().appendInstant(3).toFormatter()
+    override fun serialize(value: Instant?, gen: JsonGenerator?, serializers: SerializerProvider?) {
+        gen?.writeString(dateTimeFormatter.format(value))
     }
 }

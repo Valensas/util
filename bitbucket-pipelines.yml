@@ -1,0 +1,40 @@
+image: gradle:7.5.0-jdk17
+
+definitions:
+  caches:
+    gradlewrapper: ~/.gradle/wrapper
+  steps:
+    - step: &lint
+        name: Lint
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - bash ./gradlew lintKotlint
+    - step: &test
+        name: Test
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - bash ./gradlew test
+    - step: &publish
+        name: Publish
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - bash ./gradlew publish
+
+pipelines:
+  pull-requests:
+    "**":
+      - parallel:
+          - step: *lint
+          - step: *test
+  branches:
+    master:
+      - parallel:
+          - step: *lint
+          - step: *test
+      - step: *publish
