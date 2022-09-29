@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import java.math.BigDecimal
+import java.time.Duration
 import java.time.Instant
 
 @Configuration
@@ -22,6 +23,6 @@ class JacksonConfiguration {
         .deserializerByType(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
         .serializerByType(Instant::class.java, InstantSerializer())
         .createXmlMapper(false)
-        .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
+        .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS)
         .featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
 }
