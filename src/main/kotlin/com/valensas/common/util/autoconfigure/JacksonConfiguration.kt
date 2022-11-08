@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import java.math.BigDecimal
-import java.time.Duration
 import java.time.Instant
 
 @Configuration
