@@ -1,6 +1,6 @@
-package com.valensas.common.util.pagination
+package com.valensas.core.util.pagination
 
-import com.valensas.common.util.autoconfigure.PaginationAutoConfiguration
+import com.valensas.core.util.autoconfigure.PaginationAutoConfiguration
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.util.StringUtils

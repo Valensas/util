@@ -1,4 +1,4 @@
-package com.valensas.common.util.serializer
+package com.valensas.core.util.serializer
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer

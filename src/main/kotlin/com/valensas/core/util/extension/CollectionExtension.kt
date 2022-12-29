@@ -1,5 +1,5 @@
 // ktlint-disable filename
-package com.valensas.common.util.extension
+package com.valensas.core.util.extension
 
 import kotlinx.coroutines.reactive.awaitLast
 import kotlinx.coroutines.reactive.awaitSingle

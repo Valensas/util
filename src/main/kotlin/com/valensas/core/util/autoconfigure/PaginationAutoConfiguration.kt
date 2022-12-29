@@ -1,4 +1,4 @@
-package com.valensas.common.util.autoconfigure
+package com.valensas.core.util.autoconfigure
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration

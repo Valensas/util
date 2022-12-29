@@ -1,7 +1,7 @@
-package com.valensas.common.util
+package com.valensas.core.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.valensas.common.util.autoconfigure.JacksonConfiguration
+import com.valensas.core.util.autoconfigure.JacksonConfiguration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

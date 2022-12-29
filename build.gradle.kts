@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.2"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
-    id("org.jmailen.kotlinter") version "3.11.1"
+    id("org.springframework.boot") version "3.0.1"
+    id("io.spring.dependency-management") version "1.1.0"
+    id("org.jmailen.kotlinter") version "3.13.0"
     id("maven-publish")
     id("java-library")
-    kotlin("jvm") version "1.7.0"
-    kotlin("plugin.spring") version "1.7.0"
+    kotlin("jvm") version "1.7.22"
+    kotlin("plugin.spring") version "1.7.22"
 }
 
-group = "com.valensas.common"
-version = "1.2.0"
+group = "com.valensas.core"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {

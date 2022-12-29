@@ -1,0 +1,3 @@
+com.valensas.core.util.autoconfigure.JacksonConfiguration
+com.valensas.core.util.autoconfigure.PaginationAutoConfiguration
+com.valensas.core.util.autoconfigure.ClientIpExtractorConfig
