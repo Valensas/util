@@ -10,8 +10,8 @@ plugins {
     kotlin("plugin.spring") version "1.7.22"
 }
 
-group = "com.valensas.core"
-version = "1.0.0"
+group = "com.valensas"
+version = "2.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
