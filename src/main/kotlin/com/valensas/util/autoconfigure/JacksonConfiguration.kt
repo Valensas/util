@@ -1,8 +1,8 @@
-package com.valensas.core.util.autoconfigure
+package com.valensas.util.autoconfigure
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.valensas.core.util.serializer.BigDecimalMoneyDeserializer
-import com.valensas.core.util.serializer.InstantSerializer
+import com.valensas.util.serializer.BigDecimalMoneyDeserializer
+import com.valensas.util.serializer.InstantSerializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,7 +1,8 @@
-package com.valensas.core.util.autoconfigure
+package com.valensas.util.autoconfigure
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono
 import reactor.util.context.Context
 
 @Component
+@ConditionalOnClass(WebFilter::class)
 class ClientIpExtractorConfig(
     @Value("\${management.endpoints.web.base-path:/actuator}")
     private val managementBasePath: String

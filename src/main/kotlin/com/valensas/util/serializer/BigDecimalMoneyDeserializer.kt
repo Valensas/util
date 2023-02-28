@@ -1,4 +1,4 @@
-package com.valensas.core.util.serializer
+package com.valensas.util.serializer
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.JsonProcessingException
