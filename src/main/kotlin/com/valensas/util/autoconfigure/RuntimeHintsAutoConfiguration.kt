@@ -32,7 +32,7 @@ class RuntimeHintsAutoConfiguration {
                 .typeScanner(classLoader!!)
                 .scanPackages(packages)
                 .forEach {
-                    hints.reflection().registerType(it, MemberCategory.INVOKE_PUBLIC_METHODS)
+                    hints.reflection().registerType(it, *MemberCategory.values())
                 }
         }
     }
