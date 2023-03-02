@@ -2,6 +2,10 @@ image: openjdk:17-slim
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  KUBERNETES_CPU_REQUEST: "1"
+  KUBERNETES_CPU_LIMIT: "1"
+  KUBERNETES_MEMORY_REQUEST: "2Gi"
+  KUBERNETES_MEMORY_LIMIT: "2Gi"
 
 before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
