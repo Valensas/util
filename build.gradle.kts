@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.valensas"
-version = "2.3.3"
+version = "2.3.4"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -24,6 +24,7 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    compileOnly("io.micrometer:micrometer-core")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

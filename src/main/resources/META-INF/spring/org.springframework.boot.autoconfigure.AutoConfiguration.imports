@@ -1,4 +1,3 @@
 com.valensas.util.autoconfigure.JacksonConfiguration
 com.valensas.util.autoconfigure.PaginationAutoConfiguration
 com.valensas.util.autoconfigure.ClientIpExtractorConfig
-com.valensas.util.autoconfigure.RuntimeHintsAutoConfiguration
