@@ -21,14 +21,13 @@ fun Pageable.toJavaPageable(): PageRequest {
     return PageRequest.of(pageParam, sizeParam, sortParam)
 }
 
-private fun calculateSize(size: Int?) = size
-    .run { this ?: PaginationAutoConfiguration.defaultPageSize }
-    .let { if (it < 1) PaginationAutoConfiguration.defaultPageSize else it }
-    .let { min(PaginationAutoConfiguration.maxPageSize, it) }
+private fun calculateSize(size: Int?) =
+    size
+        .run { this ?: PaginationAutoConfiguration.defaultPageSize }
+        .let { if (it < 1) PaginationAutoConfiguration.defaultPageSize else it }
+        .let { min(PaginationAutoConfiguration.maxPageSize, it) }
 
-private fun parseParameterIntoSort(
-    sort: String?
-): Sort {
+private fun parseParameterIntoSort(sort: String?): Sort {
     return sort?.replace(" ", "")
         ?.split(";")
         ?.mapNotNull { part ->
@@ -47,6 +46,7 @@ private fun parseParameterIntoSort(
         ?: Sort.unsorted()
 }
 
-fun UriBuilder.pageable(pageable: Pageable) = this.queryParam("page", pageable.page)
-    .queryParam("sort", pageable.sort)
-    .queryParam("size", pageable.size)
+fun UriBuilder.pageable(pageable: Pageable) =
+    this.queryParam("page", pageable.page)
+        .queryParam("sort", pageable.sort)
+        .queryParam("size", pageable.size)

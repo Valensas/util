@@ -14,9 +14,10 @@ import java.math.BigDecimal
 @ExtendWith(MockitoExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MapperTest {
-    private val mapper = JacksonConfiguration()
-        .jackson2ObjectMapperBuilder(8)
-        .build<ObjectMapper>()
+    private val mapper =
+        JacksonConfiguration()
+            .jackson2ObjectMapperBuilder(8)
+            .build<ObjectMapper>()
 
     @Test
     fun `serialize and deserialize bigdecimal`() {

@@ -16,10 +16,12 @@ class ClientIpExtractorConfig(
     @Value("\${management.endpoints.web.base-path:/actuator}")
     private val managementBasePath: String
 ) : WebFilter {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    override fun filter(serverWebExchange: ServerWebExchange, webFilterChain: WebFilterChain): Mono<Void> {
+    override fun filter(
+        serverWebExchange: ServerWebExchange,
+        webFilterChain: WebFilterChain
+    ): Mono<Void> {
         if (serverWebExchange.request.path.toString().startsWith(managementBasePath)) return webFilterChain.filter(serverWebExchange)
 
         val clientIp = serverWebExchange.request.headers.getFirst("x-client-ip")

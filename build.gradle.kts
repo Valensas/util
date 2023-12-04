@@ -1,18 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.3"
-    id("io.spring.dependency-management") version "1.1.0"
-    id("org.jmailen.kotlinter") version "3.13.0"
+    id("org.springframework.boot") version "3.2.0"
+    id("io.spring.dependency-management") version "1.1.4"
+    id("org.jmailen.kotlinter") version "4.1.0"
     id("maven-publish")
     id("java-library")
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
+    kotlin("jvm") version "1.9.21"
+    kotlin("plugin.spring") version "1.9.21"
 }
 
 group = "com.valensas"
-version = "2.3.6"
-java.sourceCompatibility = JavaVersion.VERSION_17
+version = "3.0.0"
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ dependencies {
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     compileOnly("io.micrometer:micrometer-core")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.3")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -33,7 +33,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 

@@ -1,4 +1,6 @@
-// ktlint-disable filename
+
+@file:Suppress("ktlint:standard:filename")
+
 package com.valensas.util.extension
 
 import kotlinx.coroutines.reactive.awaitFirstOrNull

@@ -12,7 +12,10 @@ class BigDecimalMoneyDeserializer(
     private val scale: Int
 ) : JsonDeserializer<BigDecimal>() {
     @Throws(IOException::class, JsonProcessingException::class)
-    override fun deserialize(jp: JsonParser, ctx: DeserializationContext): BigDecimal {
+    override fun deserialize(
+        jp: JsonParser,
+        ctx: DeserializationContext
+    ): BigDecimal {
         return jp.decimalValue.setScale(scale, RoundingMode.HALF_UP)
     }
 }

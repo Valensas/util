@@ -6,21 +6,28 @@ import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 import kotlin.system.measureNanoTime
 
-fun measure(meterRegistry: MeterRegistry, name: String, tags: Map<String, String>, block: () -> Unit) {
+fun measure(
+    meterRegistry: MeterRegistry,
+    name: String,
+    tags: Map<String, String>,
+    block: () -> Unit
+) {
     var exception: Throwable? = null
-    val nanoDuration = measureNanoTime {
-        try {
-            block()
-        } catch (e: Throwable) {
-            exception = e
+    val nanoDuration =
+        measureNanoTime {
+            try {
+                block()
+            } catch (e: Throwable) {
+                exception = e
+            }
         }
-    }
 
-    val extraTags = if (exception == null) {
-        mapOf("exception" to "none")
-    } else {
-        mapOf("exception" to exception!!.javaClass.canonicalName)
-    }
+    val extraTags =
+        if (exception == null) {
+            mapOf("exception" to "none")
+        } else {
+            mapOf("exception" to exception!!.javaClass.canonicalName)
+        }
 
     meterRegistry.timer(name, (tags + extraTags).map { Tag.of(it.key, it.value) }).record(nanoDuration, TimeUnit.NANOSECONDS)
     if (exception != null) throw exception!!
