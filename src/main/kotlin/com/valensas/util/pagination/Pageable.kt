@@ -1,6 +1,8 @@
 package com.valensas.util.pagination
 
 import com.valensas.util.autoconfigure.PaginationAutoConfiguration
+import com.valensas.util.exception.InvalidPageSize
+import com.valensas.util.exception.InvalidSortDirection
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.util.StringUtils
@@ -24,7 +26,7 @@ fun Pageable.toJavaPageable(): PageRequest {
 private fun calculateSize(size: Int?) =
     size
         .run { this ?: PaginationAutoConfiguration.defaultPageSize }
-        .let { if (it < 1) PaginationAutoConfiguration.defaultPageSize else it }
+        .also { if (it < 1) throw InvalidPageSize() }
         .let { min(PaginationAutoConfiguration.maxPageSize, it) }
 
 private fun parseParameterIntoSort(sort: String?): Sort {
@@ -33,7 +35,14 @@ private fun parseParameterIntoSort(sort: String?): Sort {
         ?.mapNotNull { part ->
             val element = part.split(",")
             val property = element.getOrNull(0) ?: return@mapNotNull null
-            val direction = element.getOrNull(1)?.let(Sort.Direction::fromString)
+            val direction =
+                element.getOrNull(1)?.let {
+                    try {
+                        Sort.Direction.fromString(it)
+                    } catch (ex: IllegalArgumentException) {
+                        throw InvalidSortDirection(it)
+                    }
+                }
 
             if (!StringUtils.hasText(property)) {
                 null

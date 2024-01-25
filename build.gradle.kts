@@ -11,11 +11,24 @@ plugins {
 }
 
 group = "com.valensas"
-version = "3.0.0"
+version = "3.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
+    if (project.hasProperty("GITLAB_REPO_URL")) {
+        maven {
+            name = "Gitlab"
+            url = uri(project.property("GITLAB_REPO_URL").toString())
+            credentials(HttpHeaderCredentials::class.java) {
+                name = project.findProperty("GITLAB_TOKEN_NAME")?.toString()
+                value = project.findProperty("GITLAB_TOKEN")?.toString()
+            }
+            authentication {
+                create("header", HttpHeaderAuthentication::class)
+            }
+        }
+    }
 }
 
 
@@ -24,6 +37,7 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.valensas:exception:2.0.1")
     compileOnly("io.micrometer:micrometer-core")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.3")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
