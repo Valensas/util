@@ -11,8 +11,8 @@ plugins {
 }
 
 group = "com.valensas"
-version = "3.0.1"
-java.sourceCompatibility = JavaVersion.VERSION_21
+version = "3.1.0"
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -37,7 +37,7 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.valensas:exception:2.0.1")
+    implementation("com.valensas:exception:2.1.0")
     compileOnly("io.micrometer:micrometer-core")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.3")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -47,7 +47,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 }
 
