@@ -8,13 +8,14 @@ import org.springframework.data.domain.Sort
 import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.util.UriBuilder
+import java.io.Serializable
 import kotlin.math.min
 
 class Pageable(
     @RequestParam(required = false) val page: Int?,
     @RequestParam(required = false) val size: Int?,
     @RequestParam(required = false) val sort: String?
-)
+) : Serializable
 
 fun Pageable.toJavaPageable(): PageRequest {
     val sortParam = parseParameterIntoSort(sort)
