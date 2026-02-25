@@ -1,5 +1,4 @@
-[![N|Solid](https://valensas.com/img/logo.png)](https://nodesource.com/products/nsolid)
-# Valensas Util Library
+# Util Library
 It is the library that contains common object mapper configurations and extensions.
 
 ### Change log
