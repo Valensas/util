@@ -2,9 +2,14 @@ package com.valensas.util.exception
 
 import com.valensas.exception.BadRequest
 
-class InvalidPageSize : BadRequest(
-    "Page size must not be less than one",
+class InvalidPageSize(max: Int) : BadRequest(
+    "Page size must be between 0 and $max",
     "INVALID_PAGE_SIZE"
+)
+
+class InvalidPageNumber : BadRequest(
+    "Page number must not be less than zero",
+    "INVALID_PAGE_NUMBER"
 )
 
 class InvalidSortDirection(direction: String) : BadRequest(

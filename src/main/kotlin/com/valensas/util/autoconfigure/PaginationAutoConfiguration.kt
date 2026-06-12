@@ -1,23 +1,23 @@
 package com.valensas.util.autoconfigure
 
+import com.valensas.util.config.PageableConfig
 import com.valensas.util.pagination.Pageable
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding
-import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 @RegisterReflectionForBinding(classes = [Pageable::class])
+@EnableConfigurationProperties(PageableConfig::class)
 class PaginationAutoConfiguration(
-    @Value("\${spring.data.rest.max-page-size:50}") private val maxPageSize: Int,
-    @Value("\${spring.data.rest.default-page-size:20}") private val defaultPageSize: Int
+    pageableConfig: PageableConfig
 ) {
     init {
-        Companion.defaultPageSize = defaultPageSize
-        Companion.maxPageSize = maxPageSize
-    }
-
-    companion object {
-        var defaultPageSize = 20
-        var maxPageSize = 50
+        pageableConfig.defaultPageSize?.let {
+            Pageable.defaultPageSize = it
+        }
+        pageableConfig.maxPageSize?.let {
+            Pageable.maxPageSize = it
+        }
     }
 }

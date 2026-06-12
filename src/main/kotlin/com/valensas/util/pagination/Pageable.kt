@@ -1,6 +1,6 @@
 package com.valensas.util.pagination
 
-import com.valensas.util.autoconfigure.PaginationAutoConfiguration
+import com.valensas.util.exception.InvalidPageNumber
 import com.valensas.util.exception.InvalidPageSize
 import com.valensas.util.exception.InvalidSortDirection
 import org.springframework.data.domain.PageRequest
@@ -9,26 +9,34 @@ import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.util.UriBuilder
 import java.io.Serializable
-import kotlin.math.min
 
 class Pageable(
-    @RequestParam(required = false) val page: Int?,
-    @RequestParam(required = false) val size: Int?,
+    @RequestParam(required = false) var page: Int?,
+    @RequestParam(required = false) var size: Int?,
     @RequestParam(required = false) val sort: String?
-) : Serializable
+) : Serializable {
+    companion object {
+        var defaultPageSize = 20
+        var maxPageSize = 1000
+    }
+
+    init {
+        size = size ?: defaultPageSize
+        size?.let {
+            if (it < 0) throw InvalidPageSize(maxPageSize)
+            if (it > maxPageSize) throw InvalidPageSize(maxPageSize)
+        }
+        page = page ?: 0
+
+        page?.let { if (it < 0) throw InvalidPageNumber() }
+    }
+}
 
 fun Pageable.toJavaPageable(): PageRequest {
     val sortParam = parseParameterIntoSort(sort)
     val pageParam = this.page ?: 0
-    val sizeParam = calculateSize(this.size)
-    return PageRequest.of(pageParam, sizeParam, sortParam)
+    return PageRequest.of(pageParam, this.size ?: Pageable.defaultPageSize, sortParam)
 }
-
-private fun calculateSize(size: Int?) =
-    size
-        .run { this ?: PaginationAutoConfiguration.defaultPageSize }
-        .also { if (it < 1) throw InvalidPageSize() }
-        .let { min(PaginationAutoConfiguration.maxPageSize, it) }
 
 private fun parseParameterIntoSort(sort: String?): Sort {
     return sort?.replace(" ", "")
