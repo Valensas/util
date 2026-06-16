@@ -1,11 +1,12 @@
 package com.valensas.util
 
-import com.valensas.util.autoconfigure.PaginationAutoConfiguration
+import com.valensas.util.exception.InvalidPageNumber
 import com.valensas.util.exception.InvalidPageSize
 import com.valensas.util.exception.InvalidSortDirection
 import com.valensas.util.pagination.Pageable
 import com.valensas.util.pagination.toJavaPageable
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
@@ -19,10 +20,10 @@ class PageableTest {
         val pageable =
             Pageable(null, null, null)
         val page = pageable.toJavaPageable()
-        Assertions.assertNotNull(page)
-        Assertions.assertEquals(Sort.unsorted(), page.sort)
-        Assertions.assertEquals(0, page.pageNumber)
-        Assertions.assertEquals(PaginationAutoConfiguration.defaultPageSize, page.pageSize)
+        assertNotNull(page)
+        assertEquals(Sort.unsorted(), page.sort)
+        assertEquals(0, page.pageNumber)
+        assertEquals(Pageable.defaultPageSize, page.pageSize)
     }
 
     @Test
@@ -30,20 +31,25 @@ class PageableTest {
         val pageable =
             Pageable(1, 5, "created_date,desc")
         val page = pageable.toJavaPageable()
-        Assertions.assertNotNull(page)
-        Assertions.assertNotNull(page.sort)
-        Assertions.assertNotNull(page.sort.getOrderFor("created_date"))
-        Assertions.assertEquals(Sort.Direction.DESC, page.sort.getOrderFor("created_date")!!.direction)
-        Assertions.assertEquals(1, page.pageNumber)
-        Assertions.assertEquals(min(pageable.size!!, PaginationAutoConfiguration.defaultPageSize), page.pageSize)
+        assertNotNull(page)
+        assertNotNull(page.sort)
+        assertNotNull(page.sort.getOrderFor("created_date"))
+        assertEquals(Sort.Direction.DESC, page.sort.getOrderFor("created_date")!!.direction)
+        assertEquals(1, page.pageNumber)
+        assertEquals(min(pageable.size!!, Pageable.defaultPageSize), page.pageSize)
     }
 
     @Test
     fun `try to initiate javaPageable with invalid size`() {
-        val pageable =
-            Pageable(null, 0, null)
         assertThrows<InvalidPageSize> {
-            pageable.toJavaPageable()
+            Pageable(null, -1, null)
+        }
+    }
+
+    @Test
+    fun `try to initiate javaPageable with invalid page number`() {
+        assertThrows<InvalidPageNumber> {
+            Pageable(-1, null, null)
         }
     }
 
