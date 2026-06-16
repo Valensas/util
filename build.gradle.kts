@@ -29,6 +29,7 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<KotlinCompile> {
@@ -38,12 +39,11 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+extra["kotlin.version"] = "2.4.0"
+
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
-    }
-    dependencies {
-        dependency("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.2.21")
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.15")
     }
 }
 
