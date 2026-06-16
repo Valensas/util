@@ -15,7 +15,5 @@ class BigDecimalMoneyDeserializer(
     override fun deserialize(
         jp: JsonParser,
         ctx: DeserializationContext
-    ): BigDecimal {
-        return BigDecimal(jp.valueAsString).setScale(scale, RoundingMode.HALF_UP)
-    }
+    ): BigDecimal = BigDecimal(jp.valueAsString).setScale(scale, RoundingMode.HALF_UP)
 }

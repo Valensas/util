@@ -28,6 +28,5 @@ class JacksonConfiguration {
                 SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
                 SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
                 SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS
-            )
-            .featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+            ).featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
 }
