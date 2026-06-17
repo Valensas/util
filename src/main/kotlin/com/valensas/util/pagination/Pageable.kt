@@ -64,8 +64,7 @@ private fun parseParameterIntoSort(sort: String?): Sort {
         ?: Sort.unsorted()
 }
 
-fun UriBuilder.pageable(pageable: Pageable) =
-    this
-        .queryParam("page", pageable.page)
-        .queryParam("sort", pageable.sort)
-        .queryParam("size", pageable.size)
+fun UriBuilder.pageable(pageable: Pageable) = this
+    .queryParam("page", pageable.page)
+    .queryParam("sort", pageable.sort)
+    .queryParam("size", pageable.size)

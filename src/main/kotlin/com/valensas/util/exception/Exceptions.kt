@@ -5,9 +5,9 @@ import com.valensas.exception.BadRequest
 class InvalidPageSize(
     max: Int
 ) : BadRequest(
-        "Page size must be between 0 and $max",
-        "INVALID_PAGE_SIZE"
-    )
+    "Page size must be between 0 and $max",
+    "INVALID_PAGE_SIZE"
+)
 
 class InvalidPageNumber :
     BadRequest(
@@ -18,6 +18,6 @@ class InvalidPageNumber :
 class InvalidSortDirection(
     direction: String
 ) : BadRequest(
-        "Invalid value:$direction, has to be either 'desc' or 'asc' (case insensitive)",
-        "INVALID_SORT_DIRECTION"
-    )
+    "Invalid value:$direction, has to be either 'desc' or 'asc' (case insensitive)",
+    "INVALID_SORT_DIRECTION"
+)
