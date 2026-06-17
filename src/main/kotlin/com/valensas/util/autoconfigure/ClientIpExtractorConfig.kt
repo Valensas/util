@@ -22,11 +22,17 @@ class ClientIpExtractorConfig(
         serverWebExchange: ServerWebExchange,
         webFilterChain: WebFilterChain
     ): Mono<Void> {
-        if (serverWebExchange.request.path.toString().startsWith(managementBasePath)) return webFilterChain.filter(serverWebExchange)
+        if (serverWebExchange.request.path
+                .toString()
+                .startsWith(managementBasePath)
+        ) {
+            return webFilterChain.filter(serverWebExchange)
+        }
 
         val clientIp = serverWebExchange.request.headers.getFirst("x-client-ip")
         if (clientIp == null) logger.trace("Failed to fetch client ip from header x-client-ip")
-        return webFilterChain.filter(serverWebExchange)
+        return webFilterChain
+            .filter(serverWebExchange)
             .contextWrite { context: Context ->
                 clientIp?.let { context.put("ClientIp", clientIp) } ?: context
             }

@@ -39,7 +39,8 @@ fun Pageable.toJavaPageable(): PageRequest {
 }
 
 private fun parseParameterIntoSort(sort: String?): Sort {
-    return sort?.replace(" ", "")
+    return sort
+        ?.replace(" ", "")
         ?.split(";")
         ?.mapNotNull { part ->
             val element = part.split(",")
@@ -58,13 +59,12 @@ private fun parseParameterIntoSort(sort: String?): Sort {
             } else {
                 if (direction != null) Sort.Order(direction, property) else Sort.Order.by(property)
             }
-        }
-        ?.takeIf { it.isNotEmpty() }
+        }?.takeIf { it.isNotEmpty() }
         ?.let { Sort.by(it) }
         ?: Sort.unsorted()
 }
 
-fun UriBuilder.pageable(pageable: Pageable) =
-    this.queryParam("page", pageable.page)
-        .queryParam("sort", pageable.sort)
-        .queryParam("size", pageable.size)
+fun UriBuilder.pageable(pageable: Pageable) = this
+    .queryParam("page", pageable.page)
+    .queryParam("sort", pageable.sort)
+    .queryParam("size", pageable.size)

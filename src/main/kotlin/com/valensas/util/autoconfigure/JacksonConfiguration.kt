@@ -19,15 +19,13 @@ class JacksonConfiguration {
     fun jackson2ObjectMapperBuilder(
         @Value("\${valensas.server.bigdecimal.scale:8}")
         scale: Int
-    ): Jackson2ObjectMapperBuilder =
-        Jackson2ObjectMapperBuilder()
-            .deserializerByType(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
-            .serializerByType(Instant::class.java, InstantSerializer())
-            .createXmlMapper(false)
-            .featuresToDisable(
-                SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-                SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
-                SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS
-            )
-            .featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+    ): Jackson2ObjectMapperBuilder = Jackson2ObjectMapperBuilder()
+        .deserializerByType(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
+        .serializerByType(Instant::class.java, InstantSerializer())
+        .createXmlMapper(false)
+        .featuresToDisable(
+            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+            SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
+            SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS
+        ).featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
 }

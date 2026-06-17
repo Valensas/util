@@ -16,7 +16,11 @@ suspend fun <T> Collection<T>.parallelForEach(mapper: suspend (T) -> Unit) {
 
 suspend fun <T, U> Collection<T>.parallelMap(mapper: suspend (T) -> U): List<U> {
     if (this.isEmpty()) return emptyList()
-    return Flux.fromIterable(this).flatMap { mono { mapper(it) } }.collectList().awaitSingle()
+    return Flux
+        .fromIterable(this)
+        .flatMap { mono { mapper(it) } }
+        .collectList()
+        .awaitSingle()
 }
 
 suspend fun <T> Flux<T>.parallelForEach(function: suspend (T) -> Unit) {

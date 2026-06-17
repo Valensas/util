@@ -1,17 +1,18 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("io.spring.dependency-management") version "1.1.4"
-    id("org.jmailen.kotlinter") version "4.1.0"
+    id("io.spring.dependency-management") version "1.1.7"
+    id("org.jmailen.kotlinter") version "5.5.0"
     id("maven-publish")
     id("java-library")
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.spring") version "1.9.21"
+    kotlin("jvm") version "2.4.0"
+    kotlin("plugin.spring") version "2.4.0"
     id("net.thebugmc.gradle.sonatype-central-portal-publisher") version "1.2.4"
 }
 
 group = "com.valensas"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -23,23 +24,26 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.valensas:exception:2.4.2")
+    implementation("com.valensas:exception:2.5.0")
     compileOnly("io.micrometer:micrometer-core")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict")
+        jvmTarget = JvmTarget.JVM_21
     }
 }
 
+extra["kotlin.version"] = "2.4.0"
+
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.15")
     }
 }
 
