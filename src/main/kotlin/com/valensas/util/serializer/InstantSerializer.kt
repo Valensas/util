@@ -1,20 +1,20 @@
 package com.valensas.util.serializer
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.JsonSerializer
-import com.fasterxml.jackson.databind.SerializerProvider
+import tools.jackson.core.JsonGenerator
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.ValueSerializer
 import java.time.Instant
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 
-class InstantSerializer : JsonSerializer<Instant>() {
+class InstantSerializer : ValueSerializer<Instant>() {
     private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatterBuilder().appendInstant(3).toFormatter()
 
     override fun serialize(
-        value: Instant?,
-        gen: JsonGenerator?,
-        serializers: SerializerProvider?
+        value: Instant,
+        gen: JsonGenerator,
+        ctxt: SerializationContext
     ) {
-        gen?.writeString(dateTimeFormatter.format(value))
+        gen.writeString(dateTimeFormatter.format(value))
     }
 }

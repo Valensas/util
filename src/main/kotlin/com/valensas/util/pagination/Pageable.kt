@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.util.UriBuilder
 import java.io.Serializable
+import java.util.Optional
 
 class Pageable(
     @RequestParam(required = false) var page: Int?,
@@ -65,6 +66,6 @@ private fun parseParameterIntoSort(sort: String?): Sort {
 }
 
 fun UriBuilder.pageable(pageable: Pageable) = this
-    .queryParam("page", pageable.page)
-    .queryParam("sort", pageable.sort)
-    .queryParam("size", pageable.size)
+    .queryParamIfPresent("page", Optional.ofNullable(pageable.page))
+    .queryParamIfPresent("sort", Optional.ofNullable(pageable.sort))
+    .queryParamIfPresent("size", Optional.ofNullable(pageable.size))

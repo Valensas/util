@@ -1,31 +1,35 @@
 package com.valensas.util.autoconfigure
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.SerializationFeature
 import com.valensas.util.serializer.BigDecimalMoneyDeserializer
 import com.valensas.util.serializer.InstantSerializer
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Primary
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.cfg.DateTimeFeature
+import tools.jackson.databind.cfg.EnumFeature
+import tools.jackson.databind.module.SimpleModule
 import java.math.BigDecimal
 import java.time.Instant
 
 @Configuration
 class JacksonConfiguration {
     @Bean
-    @Primary
-    fun jackson2ObjectMapperBuilder(
+    fun valensasJsonMapperBuilderCustomizer(
         @Value("\${valensas.server.bigdecimal.scale:8}")
         scale: Int
-    ): Jackson2ObjectMapperBuilder = Jackson2ObjectMapperBuilder()
-        .deserializerByType(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
-        .serializerByType(Instant::class.java, InstantSerializer())
-        .createXmlMapper(false)
-        .featuresToDisable(
-            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-            SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
-            SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS
-        ).featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+    ): JsonMapperBuilderCustomizer = JsonMapperBuilderCustomizer { builder ->
+        val module = SimpleModule()
+            .addDeserializer(BigDecimal::class.java, BigDecimalMoneyDeserializer(scale))
+            .addSerializer(Instant::class.java, InstantSerializer())
+        builder
+            .addModule(module)
+            .disable(
+                DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS,
+                DateTimeFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS,
+                DateTimeFeature.WRITE_DURATIONS_AS_TIMESTAMPS
+            ).enable(EnumFeature.WRITE_ENUMS_USING_TO_STRING)
+            .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+    }
 }
