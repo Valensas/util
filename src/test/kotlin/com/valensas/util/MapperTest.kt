@@ -1,7 +1,5 @@
 package com.valensas.util
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.valensas.util.autoconfigure.JacksonConfiguration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -9,15 +7,19 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
+import tools.jackson.databind.exc.MismatchedInputException
+import tools.jackson.databind.json.JsonMapper
 import java.math.BigDecimal
 
 @ExtendWith(MockitoExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MapperTest {
-    private val mapper =
-        JacksonConfiguration()
-            .jackson2ObjectMapperBuilder(8)
-            .build<ObjectMapper>()
+    private val mapper: JsonMapper =
+        JsonMapper
+            .builder()
+            .findAndAddModules()
+            .also { JacksonConfiguration().valensasJsonMapperBuilderCustomizer(8).customize(it) }
+            .build()
 
     @Test
     fun `serialize and deserialize bigdecimal`() {

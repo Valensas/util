@@ -26,11 +26,11 @@ fun measure(
         if (exception == null) {
             mapOf("exception" to "none")
         } else {
-            mapOf("exception" to exception!!.javaClass.canonicalName)
+            mapOf("exception" to exception.javaClass.canonicalName)
         }
 
     meterRegistry.timer(name, (tags + extraTags).map { Tag.of(it.key, it.value) }).record(nanoDuration, TimeUnit.NANOSECONDS)
-    if (exception != null) throw exception!!
+    if (exception != null) throw exception
 }
 
 fun runScheduledTask(
