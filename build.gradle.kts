@@ -24,7 +24,7 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.valensas:exception:3.0.0")
+    implementation("com.valensas:exception:3.1.0")
     compileOnly("io.micrometer:micrometer-core")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
